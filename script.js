@@ -16,14 +16,32 @@ function generateGrid(size = 16) {
 
     let squares = document.querySelectorAll(".square")
     squares.forEach(square => square.addEventListener('mouseover', function(e) {
-        console.log(e)
+        // console.log(e)
         highlight(e)
     }));
 }
 
 function highlight(e) {
     let square = e.target
-    square.style.backgroundColor = "red";
+    changeSquareColor(square)
+    return true;
+}
+
+function changeSquareColor(square) {
+    if (square.style.backgroundColor) {
+        let rgb = square.style.backgroundColor;
+        rgb = rgb.substring(4, rgb.length-1).replace(/ /g, '').split(',')
+        let red = parseInt(rgb[0]) * 0.9;
+        console.log(red)
+        let green = parseInt(rgb[1]) * 0.9;
+        let blue = parseInt(rgb[2]) * 0.9;
+        square.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+    } else {
+        let red = Math.random() * 255;
+        let green = Math.random() * 255;
+        let blue = Math.random() * 255;
+        square.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+    }
     return true;
 }
 
